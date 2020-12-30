@@ -107,7 +107,7 @@ router.get('/theo-NhaSX/', (req, res) => {
     var sql2 = `select * from publisher`;
     var sql3 = `select distinct ISBN, Cost, b.name as BookName, PubName, AField, concat_ws(" ", FName,\
      MName, LName) as AuthName from book b join field on b.isbn = bookid join writtenby on bookisbn = b.isbn \
-     join author on ssn = authorssn join publisher p where p.code = '${req.query.id}' `;
+     join author on ssn = authorssn join publisher p on pubname = p.name where p.code = '${req.query.id}' `;
     var sql4 = `select * from publisher where code = '${req.query.id}'`;
 
     db.query(sql1, function(err, res1){
@@ -129,6 +129,8 @@ router.get('/theo-NhaSX/', (req, res) => {
                                         tenNXB:tenNXB[0],
                                         url : "/tim-kiem/theo-NhaSX/?id="+req.query.id
                                     };
+                                    console.log('aaaasasas')
+                                    console.log(req.query.id)
                                     res.render('search/theo-nhasx', vm);
                                 });
                             });
